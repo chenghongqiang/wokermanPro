@@ -6,27 +6,27 @@ require_once __DIR__ . '/Workerman/Autoloader.php';
 
 $worker1 = new Worker('tcp://0.0.0.0:8080');
 $worker1->count = 4;
-//workerÊµÀı1ÓĞ4¸ö½ø³Ì£¬½ø³Ìid±àºÅ½«·Ö±ğÎª0/1/2/3
+//workerå®ä¾‹1æœ‰4ä¸ªè¿›ç¨‹ï¼Œè¿›ç¨‹idç¼–å·å°†åˆ†åˆ«ä¸º0/1/2/3
 $worker1->onWorkerStart = function($worker1)
 {
     echo "worker1->id={$worker1->id}\n";
-    //Ö»ÔÚid±àºÅÎª0µÄ½ø³ÌÉÏÉèÖÃ¶¨Ê±Æ÷£¬ÆäËû1¡¢2¡¢3ºÅ½ø³Ì²»ÉèÖÃ¶¨Ê±Æ÷
+    //åªåœ¨idç¼–å·ä¸º0çš„è¿›ç¨‹ä¸Šè®¾ç½®å®šæ—¶å™¨ï¼Œå…¶ä»–1ã€2ã€3å·è¿›ç¨‹ä¸è®¾ç½®å®šæ—¶å™¨
     if($worker1->id === 0) {
         \Workerman\Lib\Timer::add(1, function(){
-           echo "4¸öworker½ø³Ì£¬Ö»ÔÚ0ºÅ½ø³ÌÉèÖÃ¶¨Ê±Æ÷\n";
+           echo "4ä¸ªworkerè¿›ç¨‹ï¼Œåªåœ¨0å·è¿›ç¨‹è®¾ç½®å®šæ—¶å™¨\n";
         });
     }
 };
 
-// workerÊµÀı2ÓĞÁ½¸ö½ø³Ì£¬½ø³Ìid±àºÅ½«·Ö±ğÎª0¡¢1
+// workerå®ä¾‹2æœ‰ä¸¤ä¸ªè¿›ç¨‹ï¼Œè¿›ç¨‹idç¼–å·å°†åˆ†åˆ«ä¸º0ã€1
 $worker2 = new Worker('tcp://0.0.0.0:8081');
-// ÉèÖÃÆô¶¯2¸ö½ø³Ì
+// è®¾ç½®å¯åŠ¨2ä¸ªè¿›ç¨‹
 $worker2->count = 2;
-// Ã¿¸ö½ø³ÌÆô¶¯ºó´òÓ¡µ±Ç°½ø³Ìid±àºÅ¼´ $worker2->id
+// æ¯ä¸ªè¿›ç¨‹å¯åŠ¨åæ‰“å°å½“å‰è¿›ç¨‹idç¼–å·å³ $worker2->id
 $worker2->onWorkerStart = function($worker2)
 {
     echo "worker2->id={$worker2->id}\n";
 };
 
-// ÔËĞĞworker
+// è¿è¡Œworker
 Worker::runAll();
