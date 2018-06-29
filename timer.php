@@ -10,6 +10,12 @@ $worker1->count = 4;
 $worker1->onWorkerStart = function($worker1)
 {
     echo "worker1->id={$worker1->id}\n";
+    //只在id编号为0的进程上设置定时器，其他1、2、3号进程不设置定时器
+    if($worker1->id === 0) {
+        \Workerman\Lib\Timer::add(1, function(){
+           echo "4个worker进程，只在0号进程设置定时器\n";
+        });
+    }
 };
 
 // worker实例2有两个进程，进程id编号将分别为0、1
